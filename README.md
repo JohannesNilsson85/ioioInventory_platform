@@ -1,6 +1,6 @@
-# BenchStock
+# ioio inventory platform
 
-BenchStock is a lightweight inventory web app for electronic components,
+ioio inventory platform is a lightweight inventory web app for electronic components,
 development boards, modules, and other prototyping hardware.
 
 ## What it does
