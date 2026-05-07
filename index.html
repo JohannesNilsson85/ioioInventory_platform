@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BenchStock</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">lab Inventory</p>
+          <h1>ioio</h1>
+        </div>
+        <div class="hero-panel">
+          <div class="stat">
+            <span class="stat-label">Items stored</span>
+            <strong id="item-count">0</strong>
+          </div>
+          <div class="stat">
+            <span class="stat-label">Searchable fields</span>
+            <strong>Common + technical name</strong>
+          </div>
+        </div>
+      </header>
+
+      <main class="layout">
+        <section class="panel add-panel">
+          <div class="section-heading">
+            <h2>Quick Add</h2>
+            <p>Add a new item fast, or auto-switch into edit mode when it already exists.</p>
+          </div>
+
+          <form id="inventory-form" class="inventory-form">
+            <p id="edit-state" class="edit-state" hidden></p>
+            <label>
+              Commonly called
+              <input
+                id="common-name"
+                name="commonName"
+                type="text"
+                placeholder="Arduino Nano"
+                list="common-names"
+                required
+              />
+            </label>
+
+            <label>
+              Technical name
+              <input
+                id="technical-name"
+                name="technicalName"
+                type="text"
+                placeholder="ATmega328P development board"
+                list="technical-names"
+                required
+              />
+            </label>
+
+            <datalist id="common-names"></datalist>
+            <datalist id="technical-names"></datalist>
+
+            <label>
+              Category
+              <div id="category-menu" class="category-menu"></div>
+            </label>
+
+            <label>
+              Quantity
+              <input
+                id="quantity"
+                name="quantity"
+                type="number"
+                min="1"
+                value="1"
+              />
+            </label>
+
+            <label>
+              Storage location
+              <select
+                id="location"
+                name="location"
+              >
+                <option value="">Choose location</option>
+                <option value="Basics shelf 1">Basics shelf 1</option>
+                <option value="Basics shelf 2">Basics shelf 2</option>
+                <option value="Basics shelf 3">Basics shelf 3</option>
+                <option value="Basics shelf 4">Basics shelf 4</option>
+                <option value="Basics shelf 5">Basics shelf 5</option>
+                <option value="Basics shelf 6">Basics shelf 6</option>
+                <option value="Basics shelf 7">Basics shelf 7</option>
+                <option value="Basics shelf 8">Basics shelf 8</option>
+                <option value="Basics shelf 9">Basics shelf 9</option>
+                <option value="Basics shelf 10">Basics shelf 10</option>
+                <option value="Basics shelf 11">Basics shelf 11</option>
+                <option value="Basics shelf 12">Basics shelf 12</option>
+                <option value="Narnia shelf 1">Narnia shelf 1</option>
+                <option value="Narnia shelf 2">Narnia shelf 2</option>
+                <option value="Narnia shelf 3">Narnia shelf 3</option>
+                <option value="Narnia shelf 4">Narnia shelf 4</option>
+                <option value="Narnia shelf 5">Narnia shelf 5</option>
+                <option value="Narnia shelf 6">Narnia shelf 6</option>
+                <option value="Narnia shelf 7">Narnia shelf 7</option>
+                <option value="Narnia shelf 8">Narnia shelf 8</option>
+                <option value="Narnia shelf 9">Narnia shelf 9</option>
+                <option value="Narnia shelf 10">Narnia shelf 10</option>
+                <option value="Narnia shelf 11">Narnia shelf 11</option>
+                <option value="Narnia shelf 12">Narnia shelf 12</option>
+                <option value="Narnia shelf 13">Narnia shelf 13</option>
+                <option value="Narnia shelf 14">Narnia shelf 14</option>
+                <option value="Narnia shelf 15">Narnia shelf 15</option>
+                <option value="Narnia shelf 16">Narnia shelf 16</option>
+                <option value="Narnia shelf 17">Narnia shelf 17</option>
+                <option value="Narnia shelf 18">Narnia shelf 18</option>
+                <option value="Narnia shelf 19">Narnia shelf 19</option>
+                <option value="Narnia shelf 20">Narnia shelf 20</option>
+                <option value="Instrument shelf 1">Instrument shelf 1</option>
+                <option value="Instrument shelf 2">Instrument shelf 2</option>
+                <option value="Instrument shelf 3">Instrument shelf 3</option>
+                <option value="Instrument shelf 4">Instrument shelf 4</option>
+                <option value="Kits Corner">Kits Corner</option>
+                <option value="Office supplies">Office supplies</option>
+                <option value="3D-printer cabinet">3D-printer cabinet</option>
+                <option value="Material storage 1">Material storage 1</option>
+                <option value="Material storage 2">Material storage 2</option>
+                <option value="Material storage 3">Material storage 3</option>
+                <option value="Material storage 4">Material storage 4</option>
+              </select>
+            </label>
+
+            <label>
+              Notes
+              <textarea
+                id="notes"
+                name="notes"
+                rows="3"
+                placeholder="Voltage, package, pinout, vendor, or project notes"
+              ></textarea>
+            </label>
+
+            <button
+              id="toggle-secondary-location"
+              class="button button-ghost"
+              type="button"
+            >
+              Add additional location
+            </button>
+            <div id="additional-storage-mount"></div>
+
+            <div class="camera-shell">
+              <video id="camera-preview" autoplay playsinline muted></video>
+              <canvas id="capture-canvas" hidden></canvas>
+              <div class="camera-actions">
+                <button id="start-camera" class="button button-primary" type="button">
+                  Start Camera
+                </button>
+                <button id="take-photo" class="button" type="button" disabled>
+                  Add Photo
+                </button>
+                <label class="button button-ghost file-button">
+                  Upload Photos
+                  <input id="photo-upload" type="file" accept="image/*" multiple />
+                </label>
+              </div>
+              <div class="snapshot-shell">
+                <div id="snapshot-preview-list" class="snapshot-preview-list"></div>
+                <p id="snapshot-empty">No component photos captured yet.</p>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button class="button button-primary" type="submit">Save Item</button>
+              <button class="button" id="reset-form" type="reset">Reset</button>
+            </div>
+          </form>
+        </section>
+
+        <section class="panel inventory-panel">
+          <div class="section-heading inventory-header">
+            <div>
+              <h2>Inventory</h2>
+              <p>Search names fast, or scan the list visually.</p>
+            </div>
+            <div class="toolbar">
+              <input
+                id="search-input"
+                type="search"
+                placeholder="Search common or technical name"
+              />
+              <button id="export-data" class="button button-ghost" type="button">
+                Export
+              </button>
+            </div>
+          </div>
+
+          <div id="inventory-list" class="inventory-list"></div>
+          <template id="inventory-card-template">
+            <article class="inventory-card">
+              <div class="inventory-card-gallery"></div>
+              <div class="inventory-card-body">
+                <div class="inventory-card-heading">
+                  <div>
+                    <h3 class="inventory-common-name"></h3>
+                    <p class="inventory-technical-name"></p>
+                  </div>
+                  <label class="quantity-editor">
+                    Qty
+                    <input class="inventory-quantity-input" type="number" min="1" />
+                  </label>
+                </div>
+                <dl class="inventory-meta"></dl>
+                <p class="inventory-notes"></p>
+                <div class="inventory-secondary-block" hidden>
+                  <p class="inventory-secondary-location"></p>
+                  <p class="inventory-secondary-notes"></p>
+                </div>
+                <button class="button inventory-edit" type="button">Edit</button>
+                <button class="button button-danger inventory-delete" type="button">
+                  Delete
+                </button>
+              </div>
+            </article>
+          </template>
+        </section>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
